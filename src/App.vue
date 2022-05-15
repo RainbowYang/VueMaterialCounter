@@ -1,16 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <img alt="Vue logo" src="./assets/logo.png" @click="count++">
+  <MaterialCounter v-for="(v,i) in new Array(count).fill('')" :key="i"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MaterialCounter from './components/MaterialCounter.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    MaterialCounter,
+  },
+  data () {
+    return {
+      count: 1,
+    }
+  },
 }
 </script>
 
