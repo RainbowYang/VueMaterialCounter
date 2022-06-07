@@ -1,5 +1,8 @@
 # counter
 
+## URL
+https://counter.rainbowyang.moe/
+
 ## Project setup
 ```
 yarn install
