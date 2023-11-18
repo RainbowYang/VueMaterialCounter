@@ -27,7 +27,7 @@
         circle
         @click="
           (evt) => {
-            this.counters.push(Date.now());
+            this.counters = [...this.counters, Date.now()];
           }
         "
       />
