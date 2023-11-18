@@ -1,16 +1,73 @@
 <template>
-  <MaterialCounter/>
+  <div
+    style="
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+    "
+  >
+    <MaterialCounter
+      v-for="v in counters"
+      :key="v"
+      :id="v"
+      :onDelete="
+        () => {
+          counters = counters.filter((it) => it !== v);
+        }
+      "
+    />
+
+    <div>
+      <el-button
+        type="primary"
+        :icon="Plus"
+        circle
+        @click="
+          (evt) => {
+            this.counters.push(Date.now());
+          }
+        "
+      />
+    </div>
+  </div>
 </template>
 
 <script>
-import MaterialCounter from './components/MaterialCounter.vue'
+import MaterialCounter from "./components/MaterialCounter.vue";
+
+import { getJsonFromLocalStorage, setJsonToLocalStorage } from "./utils/index";
+import { Delete, Plus } from "@element-plus/icons-vue";
 
 export default {
-  name: 'App',
+  name: "App",
+  computed: {
+    Delete() {
+      return Delete;
+    },
+    Plus() {
+      return Plus;
+    },
+  },
   components: {
     MaterialCounter,
   },
-}
+  data() {
+    return {
+      counters: [],
+    };
+  },
+  created() {
+    this.counters = getJsonFromLocalStorage("counters", [Date.now()]);
+  },
+  watch: {
+    counters() {
+      setJsonToLocalStorage("counters", this.counters);
+    },
+  },
+};
 </script>
 
 <style>
